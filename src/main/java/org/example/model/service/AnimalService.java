@@ -2,6 +2,7 @@ package org.example.model.service;
 
 import org.example.model.entity.*;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,11 +12,15 @@ public class AnimalService implements AdditionalAnimalInt, AdditionalComInt, Sho
     @Override
     public void addAnimal(ArrayList<Animal> animalLis) {
 
-        System.out.println("Введите через ', ': имя, дату рождения");
+        System.out.println("Введите через ', ': имя, дату рождения(ДД.ММ.ГГГГ)");
         Scanner scanAdd = new Scanner(System.in);
         String animalInfo = scanAdd.nextLine();
         List<String> convertAnimal = Arrays.asList(animalInfo.split(", "));
-        System.out.println(convertAnimal);
+
+        //todo try-catch как-то влепить, было бы неплохо
+        if(!convertAnimal.get(1).matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(\\d{4})$")){
+            throw new DateTimeException("Дата введена неправильно!");
+        };
 
         System.out.println("К какому типу оно относится:\n" +
                 "1 - собака\n" +
@@ -57,9 +62,17 @@ public class AnimalService implements AdditionalAnimalInt, AdditionalComInt, Sho
         return newAnimal;
     }
 
+    //todo переделывать вот здесь для п4 меню
     @Override
-    public void addAnimalCommand(Animal animal, ArrayList<Animal> animalList, String command) {
-        animal.getCommands().add(command);
+    public void addAnimalCommand(Animal animal) {
+        System.out.println("Введите команды (через запятую, если их несколько): \n");
+        Scanner scanCommands = new Scanner(System.in);
+        String newCommands = scanCommands.nextLine();
+        List<String> commandList = Arrays.asList(newCommands
+                .replaceAll("\\s{2,}", " ")
+                .split(", "));
+
+        animal.getCommands().addAll(commandList);
     }
 
     @Override

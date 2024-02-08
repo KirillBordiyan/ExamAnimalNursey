@@ -5,5 +5,5 @@ import org.example.model.entity.Animal;
 import java.util.ArrayList;
 
 public interface AdditionalComInt {
-    void addAnimalCommand(Animal animal, ArrayList<Animal> animalList, String command);
+    void addAnimalCommand(Animal animal);
 }

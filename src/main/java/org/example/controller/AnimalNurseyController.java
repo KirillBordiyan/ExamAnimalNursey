@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class AnimalNurseyController {
 
     ArrayList<Animal> animalList;
-//    AnimalNurseyView view;
     AnimalService service;
 
     public AnimalNurseyController() {
@@ -30,29 +29,36 @@ public class AnimalNurseyController {
                     "5 - завершить работу");
 
             Scanner startScan = new Scanner(System.in);
-            int firstInput = Integer.parseInt(startScan.next());
+            int firstInput = Integer.parseInt(startScan.nextLine());
 
             switch (firstInput) {
                 case 1 -> {
                     AnimalService addAnimalService = new AnimalService();
                     addAnimalService.addAnimal(animalList);
                 }
-                //todo сделать норм версию с логической цепочкой
-
                 case 2 -> service.showAnimals(animalList);
                 case 3 -> {
                     System.out.println("Выберите номер питомца: \n");
                     service.showAnimals(animalList);
                     Scanner scanPointThree = new Scanner(System.in);
                     int animalId = Integer.parseInt(scanPointThree.next());
+
                     service.showCommands(animalList.get(animalId-1));
                 }
-                case 5 -> flag = false;
+                case 4 -> {
+                    System.out.println("Выберите номер питомца: \n");
+                    service.showAnimals(animalList);
+                    Scanner scanPointFour = new Scanner(System.in);
+                    int animalId = Integer.parseInt(scanPointFour.next());
+
+                    service.addAnimalCommand(animalList.get(animalId-1));
+                }
+                case 5 -> {
+                    System.out.println("Все-го хоро-шего!");
+                    flag = false;
+                    startScan.close();
+                }
             }
         }
-
-
     }
-
-
 }
