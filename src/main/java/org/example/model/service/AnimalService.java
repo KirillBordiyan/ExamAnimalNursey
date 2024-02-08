@@ -72,7 +72,10 @@ public class AnimalService implements AdditionalAnimalInt, AdditionalComInt, Sho
 
     @Override
     public void showCommands(Animal animal) {
-        System.out.println("Команды : "
+        System.out.println(
+                animal.getId() + ", "+
+                animal.getName() + ", " +
+                "Команды : "
                 + String.join(", ", animal.getCommands()));
     }
 }

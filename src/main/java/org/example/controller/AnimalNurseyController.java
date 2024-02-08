@@ -40,13 +40,13 @@ public class AnimalNurseyController {
                 //todo сделать норм версию с логической цепочкой
 
                 case 2 -> service.showAnimals(animalList);
-               /* case 3 -> {
+                case 3 -> {
                     System.out.println("Выберите номер питомца: \n");
-                    view.showAnimalService.showAnimals(animalList);
+                    service.showAnimals(animalList);
                     Scanner scanPointThree = new Scanner(System.in);
                     int animalId = Integer.parseInt(scanPointThree.next());
-                    view.showComService.showCommands(animalList.get(animalId));
-                }*/
+                    service.showCommands(animalList.get(animalId-1));
+                }
                 case 5 -> flag = false;
             }
         }
