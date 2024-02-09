@@ -34,7 +34,6 @@ public class Animal {
         return getId() +", "
                 + getName() +", "
                 + getType() +", "
-                + getBirht() + ", Команды: "
-                + String.join(", ", getCommands());
+                + getBirht();
     }
 }

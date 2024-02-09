@@ -7,34 +7,44 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.PatternSyntaxException;
 
 public class AnimalService implements AdditionalAnimalInt, AdditionalComInt, ShowAnimalInt, ShowComInt{
     @Override
     public void addAnimal(ArrayList<Animal> animalLis) {
 
         System.out.println("Введите через ', ': имя, дату рождения(ДД.ММ.ГГГГ)");
-        Scanner scanAdd = new Scanner(System.in);
-        String animalInfo = scanAdd.nextLine();
-        List<String> convertAnimal = Arrays.asList(animalInfo.split(", "));
+        try {
+            Scanner scanAdd = new Scanner(System.in);
+            String animalInfo = scanAdd.nextLine();
+            List<String> convertAnimal = Arrays.asList(animalInfo.split(", "));
 
-        //todo try-catch как-то влепить, было бы неплохо
-        if(!convertAnimal.get(1).matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(\\d{4})$")){
-            throw new DateTimeException("Дата введена неправильно!");
-        };
+            if (!convertAnimal.get(1).matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(\\d{4})$")) {
+                throw new Exception("неправильная дата");
+            }
 
-        System.out.println("К какому типу оно относится:\n" +
-                "1 - собака\n" +
-                "2 - котик\n" +
-                "3 - хомяк\n" +
-                "4 - лошадь\n" +
-                "5 - верблюд\n" +
-                "6 - осел");
+            System.out.println("К какому типу оно относится:\n" +
+                    "1 - собака\n" +
+                    "2 - котик\n" +
+                    "3 - хомяк\n" +
+                    "4 - лошадь\n" +
+                    "5 - верблюд\n" +
+                    "6 - осел");
 
-        Scanner scanType = new Scanner(System.in);
-        int animalType = Integer.parseInt(scanType.next());
-        Animal newAnimal = getAnimal(animalType, convertAnimal);
+            Scanner scanType = new Scanner(System.in);
+            int animalType = Integer.parseInt(scanType.next());
 
-        animalLis.add(newAnimal);
+            if (animalType < 1 || animalType > 6) {
+                throw new RuntimeException("такого вида не существует");
+            }
+
+            Animal newAnimal = getAnimal(animalType, convertAnimal);
+            animalLis.add(newAnimal);
+        }catch (NumberFormatException e){
+            System.out.println("это не номер вида питомца");
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static Animal getAnimal(int animalType, List<String> convertAnimal) {
@@ -62,7 +72,6 @@ public class AnimalService implements AdditionalAnimalInt, AdditionalComInt, Sho
         return newAnimal;
     }
 
-    //todo переделывать вот здесь для п4 меню
     @Override
     public void addAnimalCommand(Animal animal) {
         System.out.println("Введите команды (через запятую, если их несколько): \n");
