@@ -1,8 +1,8 @@
 package org.example.controller;
 
+import org.example.model.Counter;
 import org.example.model.entity.Animal;
 import org.example.model.service.AnimalService;
-//import org.example.view.AnimalNurseyView;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,6 +12,7 @@ public class AnimalNurseyController {
 
     ArrayList<Animal> animalList;
     AnimalService service;
+    Counter animalCount = new Counter();
 
     public AnimalNurseyController() {
         this.animalList = new ArrayList<>();
@@ -35,8 +36,12 @@ public class AnimalNurseyController {
                 case 1 -> {
                     AnimalService addAnimalService = new AnimalService();
                     addAnimalService.addAnimal(animalList);
+                    animalCount.increment();
                 }
-                case 2 -> service.showAnimals(animalList);
+                case 2 -> {
+                    service.showAnimals(animalList);
+                    animalCount.showAllCount();
+                }
                 case 3 -> {
                     System.out.println("Выберите номер питомца: \n");
                     service.showAnimals(animalList);

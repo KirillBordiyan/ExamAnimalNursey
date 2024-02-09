@@ -2,12 +2,10 @@ package org.example.model.service;
 
 import org.example.model.entity.*;
 
-import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.PatternSyntaxException;
 
 public class AnimalService implements AdditionalAnimalInt, AdditionalComInt, ShowAnimalInt, ShowComInt{
     @Override
@@ -41,9 +39,10 @@ public class AnimalService implements AdditionalAnimalInt, AdditionalComInt, Sho
             Animal newAnimal = getAnimal(animalType, convertAnimal);
             animalLis.add(newAnimal);
         }catch (NumberFormatException e){
-            System.out.println("это не номер вида питомца");
+            System.out.println("это не номер вида питомца\n");
+            System.out.println();
         }catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()+"\n");
         }
     }
 
@@ -89,7 +88,6 @@ public class AnimalService implements AdditionalAnimalInt, AdditionalComInt, Sho
         for (Animal animal: animalList) {
             System.out.println(animal);
         }
-        System.out.println(" ");
     }
 
     @Override
@@ -98,6 +96,6 @@ public class AnimalService implements AdditionalAnimalInt, AdditionalComInt, Sho
                 animal.getId() + ", "+
                 animal.getName() + ", " +
                 "Команды : "
-                + String.join(", ", animal.getCommands()));
+                + String.join(", ", animal.getCommands())+"\n");
     }
 }

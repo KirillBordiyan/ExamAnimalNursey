@@ -2,11 +2,7 @@ package org.example.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,11 +13,11 @@ public class Animal {
     private String birht;
     private ArrayList<String> commands;
 
-    public static int counter = 0;
+    private int countId;
 
     Animal(String name, String type, String birht) {
-        counter++;
-        this.id = counter;
+        countId++;
+        this.id = countId;
         this.name = name;
         this.type = type;
         this.birht = birht;
